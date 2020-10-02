@@ -36,7 +36,6 @@ enum {
 	Opt_default_normal,
 	Opt_nocache,
 	Opt_unshared_obb,
-
 	Opt_err,
 };
 
@@ -48,7 +47,6 @@ static const match_table_t sdcardfs_tokens = {
 	{Opt_mask, "mask=%u"},
 	{Opt_userid, "userid=%d"},
 	{Opt_multiuser, "multiuser"},
-
 	{Opt_gid_derivation, "derive_gid"},
 	{Opt_default_normal, "default_normal"},
 	{Opt_unshared_obb, "unshared_obb"},
@@ -78,7 +76,6 @@ static int parse_options(struct super_block *sb, char *options, int silent,
 	opts->gid_derivation = false;
 	opts->default_normal = false;
 	opts->nocache = false;
-
 
 	*debug = 0;
 
@@ -142,7 +139,6 @@ static int parse_options(struct super_block *sb, char *options, int silent,
 		case Opt_unshared_obb:
 			opts->unshared_obb = true;
 			break;
-
 		/* unknown option */
 		default:
 			if (!silent)
@@ -196,10 +192,8 @@ int parse_options_remount(struct super_block *sb, char *options, int silent,
 				return 0;
 			vfsopts->mask = option;
 			break;
-
 		case Opt_unshared_obb:
 		case Opt_default_normal:
-
 		case Opt_multiuser:
 		case Opt_userid:
 		case Opt_fsuid:
@@ -314,13 +308,6 @@ static int sdcardfs_read_super(struct vfsmount *mnt, struct super_block *sb,
 	lower_sb = lower_path.dentry->d_sb;
 	atomic_inc(&lower_sb->s_active);
 	sdcardfs_set_lower_super(sb, lower_sb);
-
-	sb->s_stack_depth = lower_sb->s_stack_depth + 1;
-	if (sb->s_stack_depth > FILESYSTEM_MAX_STACK_DEPTH) {
-		pr_err("sdcardfs: maximum fs stacking depth exceeded\n");
-		err = -EINVAL;
-		goto out_sput;
-	}
 
 	/* inherit maxbytes from lower file system */
 	sb->s_maxbytes = lower_sb->s_maxbytes;
