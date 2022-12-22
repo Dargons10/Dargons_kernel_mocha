@@ -1,18 +1,4 @@
 #!/bin/bash
-<<<<<<< HEAD
-R=$(pwd)
-export ARCH=arm
-DEFCONFIG=mocha_android_defconfig
-CROSS_COMPILER=$R/tc/bin/arm-linux-gnueabihf- 
-OUT_DIR=$R/out
-BUILDING_DIR=$OUT_DIR/kernel_obj
-MODULES_DIR=$OUT_DIR/modules
-JOBS=8 # x Number of cores
-
-mkdir -p $OUT_DIR $BUILDING_DIR $MODULES_DIR
-FUNC_CLEANUP()
-=======
-
 export ARCH="arm"
 export KBUILD_BUILD_HOST="v5.00"
 export KBUILD_BUILD_USER="Dargons10"
@@ -49,7 +35,7 @@ function printfc() {
 }
 
 function generate_version()
->>>>>>> 84cdc676749... mocha: build.sh fix
+
 {
 	echo -e "\n\e[95mCleaning up..."
 	mkdir -p $OUT_DIR $BUILDING_DIR $MODULES_DIR
